@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Frank_Ruhl_Libre, IBM_Plex_Mono, Noto_Sans_Hebrew } from "next/font/google";
+import { IBM_Plex_Mono, Noto_Sans_Hebrew } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { dir, isLocale, LOCALES } from "@/lib/i18n";
@@ -9,12 +9,6 @@ const sans = Noto_Sans_Hebrew({
   subsets: ["hebrew", "latin"],
   axes: ["wdth"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const serif = Frank_Ruhl_Libre({
-  subsets: ["hebrew", "latin"],
-  variable: "--font-serif",
   display: "swap",
 });
 
@@ -31,8 +25,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f2ee",
-  colorScheme: "light",
+  themeColor: "#0a0b0d",
+  colorScheme: "dark",
 };
 
 export function generateStaticParams() {
@@ -47,7 +41,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
     <html
       lang={lang}
       dir={dir(lang)}
-      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
+      className={`${sans.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>

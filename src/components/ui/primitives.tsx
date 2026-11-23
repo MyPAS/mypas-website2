@@ -16,11 +16,31 @@ export function Arrow({ className = "arrow" }: { className?: string }) {
   );
 }
 
-/** Renders a headline whose highlighted segments switch to the serif accent. */
+/**
+ * Keeps a word whole when a highlight starts inside it. The Hebrew copy often
+ * splits on a prefix letter ("…מובילה ל" + "עסק"), and colouring "ל" dim and
+ * "עסק" bright breaks the word in two. Any fragment glued to the start of a
+ * highlight is moved into it.
+ */
+export function joinWords(parts: RichText): RichText {
+  const out = parts.map((p) => ({ ...p }));
+  for (let i = 0; i < out.length - 1; i++) {
+    const cur = out[i];
+    const next = out[i + 1];
+    if (!!cur.hl === !!next.hl || /\s$/.test(cur.text) || /^\s/.test(next.text)) continue;
+    const m = cur.text.match(/(\S+)$/);
+    if (!m) continue;
+    cur.text = cur.text.slice(0, -m[1].length);
+    next.text = m[1] + next.text;
+  }
+  return out.filter((p) => p.text !== "");
+}
+
+/** Renders a two-tone headline: the highlighted phrase is lifted to full white. */
 export function Rich({ parts }: { parts: RichText }) {
   return (
     <>
-      {parts.map((part, i) => (
+      {joinWords(parts).map((part, i) => (
         <span key={i}>
           {part.line && i > 0 ? <br /> : null}
           {part.hl ? <em className="hl">{part.text}</em> : part.text}

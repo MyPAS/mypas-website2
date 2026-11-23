@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import Shell from "@/components/layout/Shell";
-import { ArmPanels, HomeHero, Marquee, Statement } from "@/components/sections/home";
+import { ArmIndex, Clients, HomeHero, Statement } from "@/components/sections/home";
 import OrgJsonLd from "@/components/layout/OrgJsonLd";
 import { Contact, Org, ProjectsSection } from "@/components/sections/shared";
-import { Kicker, SectionHead } from "@/components/ui/primitives";
+import { SectionHead } from "@/components/ui/primitives";
 import { armsHead, clientsHead, homeHero, stripSub, stripTitle, teamHead } from "@/content/home";
 import { PROJECTS, projectsHead } from "@/content/projects";
 import { CLIENTS } from "@/content/clients";
-import { CONTACT, UI } from "@/content/site";
+import { CONTACT } from "@/content/site";
 import { GROUP_THEME } from "@/lib/arms";
 import { isLocale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/metadata";
@@ -44,27 +44,12 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <OrgJsonLd locale={lang} />
       <HomeHero hero={homeHero} locale={lang} />
 
-      <section className="clients" aria-labelledby="clients-title">
-        <div className="wrap clients__label">
-          <h2 id="clients-title" className="sr-only">
-            {clientsHead.title[lang]}
-          </h2>
-          <Kicker>{clientsHead.kicker?.[lang]}</Kicker>
-          <span className="kicker" aria-hidden="true">
-            {clientsHead.title[lang]}
-          </span>
-        </div>
-        <Marquee
-          items={CLIENTS.map((c) => c.name[lang])}
-          label={clientsHead.title[lang]}
-          pause={{ pause: UI.pauseMotion[lang], resume: UI.resumeMotion[lang] }}
-        />
-      </section>
+      <Clients head={clientsHead} clients={CLIENTS} locale={lang} />
 
       <section className="section" id="arms">
         <div className="wrap">
           <SectionHead head={armsHead} locale={lang} index="01" split />
-          <ArmPanels locale={lang} />
+          <ArmIndex locale={lang} />
         </div>
       </section>
 

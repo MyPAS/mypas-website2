@@ -12,8 +12,8 @@ export default function Footer({ locale }: { locale: Locale }) {
         <div className="ftr__cols">
           <div>
             <p className="h3" style={{ maxWidth: "16ch" }}>
-              {locale === "he" ? "כל דרך מובילה ל" : "Every way to a "}
-              <em className="hl">{locale === "he" ? "עסק טוב יותר" : "better business"}</em>
+              {locale === "he" ? "כל דרך מובילה " : "Every way to a "}
+              <em className="hl">{locale === "he" ? "לעסק טוב יותר" : "better business"}</em>
             </p>
             <p className="body mt-s">{BRAND.tagline[locale]}</p>
           </div>

@@ -23,7 +23,7 @@ export default function Shell({
     "--accent": theme.accent,
     "--accent-light": theme.accentLight,
     "--accent-soft": theme.accentSoft,
-    "--hl": theme.accent,
+    "--hl": theme.accentLight,
   } as CSSProperties;
 
   return (
